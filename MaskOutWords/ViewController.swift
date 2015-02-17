@@ -12,11 +12,13 @@ import Foundation
 class ViewController: NSViewController {
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-        var text: String = "We love coding in PHP!\\nThis makes us really productive !"
-        //var words = "PHP"
+        var text: String = "We love coding in PHP!\nThis makes us really productive !"
+        
         var words: [String] = ["PHP" , "productive"]
+        
         var modifiedText = maskOutWords(text,words: words)
         
         println(modifiedText)
@@ -24,36 +26,36 @@ class ViewController: NSViewController {
     }
 
 
-    func maskOutWords(text:String,words:[String]) -> String {
+    func maskOutWords(var text:String,words:[String]) -> String {
        
-        var word1 = words[0]
-        var word2 = words[1]
-        
-        var newLineSymbol: String = "\\n"
+        var newLineSymbol: String = "\n"
         
          if text.rangeOfString(newLineSymbol) != nil{
-             println("exists")
+            
+            
+            var myStringArr = text.componentsSeparatedByString(newLineSymbol)
+            
+            newLineSymbol = "\\n"
+            
+            text = myStringArr[0] + newLineSymbol + myStringArr[1]
+            
+        }
+        var numberOfWords = countElements(words)
         
-        }
-
-        // to do: code snippet ignoring the special symbols /n
-      
-
-        var wordLength = countElements(word1)
-        var wordLength2 = countElements(word2)
-        var stars1: String = ""
-        var stars2: String = ""
-        for index in 1...wordLength {
-            stars1 += "*"
-        }
-        for index in 1...wordLength2 {
-            stars2 += "*"
+        for index in 0...numberOfWords-1{
+            
+            var wordLength = countElements(words[index])
+            
+            var stars: String = ""
+            
+            for index in 1...wordLength {
+                stars += "*"
+            }
+            text = text.stringByReplacingOccurrencesOfString(words[index], withString: stars, options: NSStringCompareOptions.LiteralSearch, range: nil)
+            
         }
         
-        let textWithStars = text.stringByReplacingOccurrencesOfString(word1, withString: stars1, options: NSStringCompareOptions.LiteralSearch, range: nil)
-       
-        let textWithStars2 = textWithStars.stringByReplacingOccurrencesOfString(word2, withString: stars2, options: NSStringCompareOptions.LiteralSearch, range: nil)
-        return textWithStars2
+        return text
     }
 
 }
