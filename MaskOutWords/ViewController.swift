@@ -15,9 +15,9 @@ class ViewController: NSViewController {
         
         super.viewDidLoad()
         
-        var text: String = "We love coding in PHP!\nThis makes us really productive !"
+        var text: String = "Yesterday, I took my dog for a walk.\n It was crazy! My dog wanted only food."
         
-        var words: [String] = ["PHP" , "productive"]
+        var words: [String] = ["yesterday", "Dog", "food", "walk"]
         
         var modifiedText = maskOutWords(text,words: words)
         
@@ -51,7 +51,7 @@ class ViewController: NSViewController {
             for index in 1...wordLength {
                 stars += "*"
             }
-            text = text.stringByReplacingOccurrencesOfString(words[index], withString: stars, options: NSStringCompareOptions.LiteralSearch, range: nil)
+            text = text.stringByReplacingOccurrencesOfString(words[index], withString: stars, options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
             
         }
         
